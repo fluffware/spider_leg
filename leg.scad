@@ -170,7 +170,7 @@ module gimbal(width, axis_diam, hinge_inner, hinge_outer, gap)
 }
 
 module base(upper_length, lower_length, scale, guide_thickness, width, axis_diam, hinge_outer, hinge_inner, upper_strut_dist) {
-  guide_length= hinge_inner + hinge_outer*2 + gap *2+width*2+1;
+  guide_length= hinge_inner + hinge_outer*2+width*2+1;
   guide_height = lower_length * scale - upper_strut_dist;
   translate([0,upper_length*scale, lower_length * scale + width/2]) {
     translate([-guide_length/2, -(width/2+gap)-guide_thickness, -guide_height]) {
@@ -195,13 +195,13 @@ module base(upper_length, lower_length, scale, guide_thickness, width, axis_diam
 	    }
 	  }
 	}
-	translate([-hinge_inner/2 - hinge_outer-width*2-gap, 0, 0]) {
+	translate([-hinge_inner/2 - hinge_outer-width*2, 0, 0]) {
 	  rotate([0,90,0]) {
-	    cylinder(d=axis_diam, h=width+gap*2);
+	    cylinder(d=axis_diam, h=width);
 	  }
 	}
       }
-      translate([-hinge_inner/2 - hinge_outer-width*2-gap, -width/2, lower_length * scale+width/2 -guide_height]) {
+      translate([-hinge_inner/2 - hinge_outer-width*2, -width/2, lower_length * scale+width/2 -guide_height]) {
 	cube([width-gap, upper_length*scale+ width + guide_thickness + gap, guide_height]);
       }
     }
