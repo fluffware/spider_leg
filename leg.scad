@@ -195,9 +195,9 @@ module base(upper_length, lower_length, scale, guide_thickness, width, axis_diam
 	    }
 	  }
 	}
-	translate([-hinge_inner/2 - hinge_outer-width*2, 0, 0]) {
+	translate([-hinge_inner/2 - hinge_outer-width*2, 0, -gap]) {
 	  rotate([0,90,0]) {
-	    cylinder(d=axis_diam, h=width);
+	    %cylinder(d=axis_diam, h=width+2*gap);
 	  }
 	}
       }
