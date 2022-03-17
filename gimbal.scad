@@ -45,10 +45,10 @@ module ring(outer_radius, inner_radius, thickness, axis_diam, axes) {
 
 thickness = 7;
 axis_gap = 0.2;
-ring_gap=3;
+ring_gap=4;
 inner_axis_offset = 1;
-inner_axis_dist=20;
-outer_axis_dist=50;
+inner_axis_dist=16;
+outer_axis_dist=40;
 axis_diam = 3;
 
 inner_inner = inner_axis_dist/2 + inner_axis_offset;
@@ -76,7 +76,15 @@ ring(outer_outer, outer_outer-ring_width, thickness, axis_diam,
        outer_outer - ring_width  - inner_axis_offset+ axis_gap,
        180]]);
 
-rotate([90,0,0]) {
-  cylinder(d=thickness, h= inner_axis_dist, center=true);
+difference() {
+  union() {
+    rotate([90,0,0]) {
+      cylinder(d=thickness, h= inner_axis_dist, center=true);
+    }
+    cube([thickness, 10,thickness], center=true);
+  }
+    rotate([90,0,0]) {
+      cylinder(d=axis_diam, h= inner_axis_dist+1, center=true);
+    }
+  
 }
-cube([10,10,thickness], center=true);
