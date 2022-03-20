@@ -1,0 +1,37 @@
+\documentclass[a4,draft]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\begin{eqnarray}
+  f(t) &=& \begin{cases} 
+    f_1(t)=\frac{a}{\alpha}t & -\alpha \leq t \le  \alpha\\
+    f_2(t - \pi) & \alpha \leq t \le  \pi \\
+    f_3(t - \pi) &  \pi \leq t \le  2\pi -\alpha
+  \end{cases}\\
+  f_2''(t) &=& Jt + C_1\\
+  f_2'(t) &=& J\frac{t^2}{2} + C_1t + C_2 \\
+  f_2(t) &=& J\frac{t^3}{6} + C_1\frac{t^2}{2} + C_2t + C_3 \\
+  f_2(\alpha - \pi) &=& a \\
+  f_2(0) &=& 0 \\
+  f_2''(\alpha - \pi) &=& 0 \\
+  f_2'(\alpha - \pi) &=& \frac{a}{\alpha}
+\end{eqnarray}
+
+\begin{eqnarray}
+  \beta &=& \alpha - \pi \\
+  C_1 &=& -J\beta \\
+  C_2 &=& \frac{a}{\alpha} - J\frac{\beta^2}{2} +J\beta^2 = \frac{a}{\alpha} + J\frac{\beta^2}{2}\\
+  C_3 &=& 0 \\
+  a &=&J\frac{\beta^3}{6} -J\beta\frac{\beta^2}{2} + \left(\frac{a}{\alpha} + J\frac{\beta^2}{2}\right)\beta \\
+  a &=& J\beta^3\left(\frac{1}{6} - \frac{1}{2} + \frac{1}{2}\right) + \frac{a\beta}{\alpha} \\
+  J &=& \frac{6\pi a}{\alpha \beta^3} \\
+  f_2(t) &=& J\frac{t^3}{6} -J\beta\frac{t^2}{2} + \left(\frac{a}{\alpha} + J\frac{\beta^2}{2}\right) t \\
+  f_2(t) &=& \frac{a}{\alpha} \left( \frac{6\pi}{\beta^3}\left(\frac{1}{6}t^3 -\frac{\beta}{2}t^2 + \frac{\beta^2}{2} t \right) +  t \right) \\
+  f_2'(t) &=& J\frac{t^2}{2} -J\beta t + \left(\frac{a}{\alpha} + J\frac{\beta^2}{2}\right) \\
+  f_2''(t) &=& J t - J\beta
+\end{eqnarray}
+\begin{eqnarray}
+  f_3(t) &=& -f_2(-t)
+\end{eqnarray}
+
+\end{document}
