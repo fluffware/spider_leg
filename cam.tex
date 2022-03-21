@@ -2,6 +2,8 @@
 \usepackage{amsmath}
 \begin{document}
 
+\section{Forward/backward movement}
+
 \begin{eqnarray}
   f(t) &=& \begin{cases} 
     f_1(t)=\frac{a}{\alpha}t & -\alpha \leq t \le  \alpha\\
@@ -34,4 +36,33 @@
   f_3(t) &=& -f_2(-t)
 \end{eqnarray}
 
+\section{Up/down movement}
+\begin{eqnarray}
+  f(t) &=& \begin{cases} 
+    0 & -\alpha \leq t \le  \alpha\\
+    f_4(t - \pi) & \alpha \leq t \le \pi \\
+    f_5(t - \pi) & \pi \leq t \le  2\pi -\alpha
+  \end{cases}\\
+  \beta &=& \alpha - \pi \\
+  f_4''(t) &=& Jt + A \\
+  f_4'(t) &=& J\frac{t^2}{2} + At + V \\
+  f_4(t) &=& J\frac{t^3}{6} + A\frac{t^2}{2} + Vt + S \\
+  f_4(\beta) &=& 0 \\
+  f_4(0) &=& h\\
+  f_4'(\beta) &=& 0 \\
+  f_4'(0) &=& 0
+\end{eqnarray}
+
+\begin{eqnarray}
+  S &=& h \\
+  V &=& 0 \\
+  0 &=& J\frac{\beta^2}{2} + A\beta \\
+  0 &=& J\frac{\beta^3}{6} + A\frac{\beta^2}{2} + h\\
+  0 &=& J\frac{\beta^3}{4} - J\frac{\beta^3}{6} - h\\
+  0 &=& J\beta^3\left(\frac{1}{4} - \frac{1}{6}\right) - h\\
+  0 &=& J\beta^3\left(\frac{1}{12}\right) - h\\
+  J &=& \frac{12h}{\beta^3} \\
+  A&=&-\frac{12h}{\beta^3}\frac{\beta}{2}=-\frac{6h}{\beta^2}\\
+  f_4(t) &=& \frac{2h}{\beta^3}t^3 - \frac{3h}{\beta^2}t^2 + h = \frac{2ht^2}{\beta^2}(2t - 3\beta) + h
+\end{eqnarray}
 \end{document}

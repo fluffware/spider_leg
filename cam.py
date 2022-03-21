@@ -72,7 +72,7 @@ for i in range(N):
     outer1 = vc[(i+1) % N][1]
     offset = np.cross((inner1-inner0),outer0 - inner0)
     offset /= np.linalg.norm(offset)
-    offset *= 5
+    offset *= 5.2
     v0.append([inner0+offset,outer0+offset])
     v1.append([inner0-offset,outer0-offset])
     
