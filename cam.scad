@@ -1,8 +1,11 @@
-$fn=100;
-difference() {
-  cylinder(r=25, h= 30, center=true);
-  import("/tmp/foo.stl");
+include <params.scad>
+
+module cam() {
+  difference() {
+    cylinder(r=cam_outer, h= cam_length, center=true);
+    import("cam_cylinder.stl");
+    cylinder(d=cam_axis_diam, h=cam_length + 1, center=true);
+  }
 }
-cylinder(r=15, h=25, center=true);
 
-
+cam();

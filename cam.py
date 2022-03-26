@@ -3,22 +3,35 @@ from stl import mesh
 from math import sin,cos,pi
 import sys
 
-stride = 7
+stride = 8
 half_contact_angle = 2*pi/3
+lift = -5;
+base_radius = 15;
+outer_radius = 30
+N= 200;
 
+beta =   beta = half_contact_angle - pi;
 def walk_forward(a):
     if a < half_contact_angle:
         return a*stride/half_contact_angle
     elif a >= 2*pi - half_contact_angle:
         return (a-2*pi)*stride/half_contact_angle
     elif a < pi:
-        beta = half_contact_angle - pi;
         a0 = a - pi;
         return stride / half_contact_angle *(6*pi/(beta*beta*beta)*(a0*a0*a0/6 - beta*a0*a0/2 + beta*beta*a0/2) + a0);
     else:
-        beta = half_contact_angle - pi;
         a0 = pi - a
         return -stride / half_contact_angle *(6*pi/(beta*beta*beta)*(a0*a0*a0/6 - beta*a0*a0/2 + beta*beta*a0/2) + a0);
+
+def walk_lift(a):
+    if a < half_contact_angle or a >=  2*pi - half_contact_angle:
+        return 0
+    elif a < pi:
+        a0 = a-pi
+        return lift/ (beta * beta*beta) *a0 * a0*(2*a0 - 3*beta) + lift
+    else:
+        a0 = pi - a
+        return lift/ (beta * beta*beta) *a0 * a0*(2*a0 - 3*beta) + lift
     
 
 def rotate_z(v,a):
@@ -51,7 +64,8 @@ def draw_cam(v0, v1):
     return v;
 
 #axial_offset = list(map(lambda i: 0.3*sin(i*pi*2/100), range(100)))
-axial_offset = list(map(lambda i: walk_forward(i*pi*2/200), range(200)))
+axial_offset = list(map(lambda i: walk_forward(i*pi*2/N), range(N)))
+radial_offset = list(map(lambda i: walk_lift(i*pi*2/N), range(N)))
 
 #axial_offset = list(map(lambda i: 0, range(10)))
 N = len(axial_offset)
@@ -59,8 +73,9 @@ vc = []
 for i in range(N):
     a0 = i * pi*2 / N;
     z0 = axial_offset[i]
-    inner = rotate_z(np.array([13, 0,z0]), a0)
-    outer = rotate_z(np.array([30,0,z0]), a0)
+    r0 = radial_offset[i] + base_radius
+    inner = rotate_z(np.array([r0, 0,z0]), a0)
+    outer = rotate_z(np.array([outer_radius,0,z0]), a0)
     vc.append([inner,outer])
 
 v0 = []
@@ -72,7 +87,7 @@ for i in range(N):
     outer1 = vc[(i+1) % N][1]
     offset = np.cross((inner1-inner0),outer0 - inner0)
     offset /= np.linalg.norm(offset)
-    offset *= 5.2
+    offset *= 4.2
     v0.append([inner0+offset,outer0+offset])
     v1.append([inner0-offset,outer0-offset])
     
@@ -92,4 +107,4 @@ else:
     print("Mesh is closed");
     
 print(m.normals)
-m.save("/tmp/foo.stl")
+m.save("cam_cylinder.stl")

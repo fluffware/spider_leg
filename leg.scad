@@ -12,7 +12,7 @@ module lower_leg(width, length, upper_strut_dist, axis_diam, hinge_inner)
 	    cube([width, width, lower_length + upper_strut_dist]);
 	  }
 	  cylinder(d1=width, d2= width*5, h=  lower_length + upper_strut_dist + 1);
-    }
+	}
 	sphere(d=width);
       }
       rotate([0,90,0]) {
@@ -31,7 +31,7 @@ module lower_leg(width, length, upper_strut_dist, axis_diam, hinge_inner)
     translate([0,0,upper_strut_dist]) {
       rotate([0,90,0]) {
 	cylinder(d=axis_diam, h = hinge_inner+1, center = true);
-	}
+      }
     }
   }
 }
@@ -170,38 +170,56 @@ module gimbal(width, axis_diam, hinge_inner, hinge_outer, gap)
 }
 
 module base(upper_length, lower_length, scale, guide_thickness, width, axis_diam, hinge_outer, hinge_inner, upper_strut_dist) {
+  base_outer_length = hinge_inner + hinge_outer*2+width*4;
   guide_length= hinge_inner + hinge_outer*2+width*2+1;
   guide_height = lower_length * scale - upper_strut_dist;
   translate([0,upper_length*scale, lower_length * scale + width/2]) {
-    translate([-guide_length/2, -(width/2+gap)-guide_thickness, -guide_height]) {
-      cube([guide_length,guide_thickness,guide_height]);
+    translate([-guide_length/2, -(width/2+gap)-guide_thickness, -guide_height+gap]) {
+      cube([guide_length,guide_thickness,guide_height-gap]);
     }
-    translate([-guide_length/2, width/2+gap, -guide_height]) {
-      cube([guide_length,guide_thickness,guide_height]);
+    translate([-guide_length/2, width/2+gap, -guide_height+ gap]) {
+      cube([guide_length,guide_thickness,guide_height-gap]);
   
     }
   }
   translate([-guide_length/2, -width/2, lower_length * scale - width/2]) {
-      cube([guide_length,width,width]);
+    cube([guide_length,width,width]);
   }
   for (s = [1,-1]) {
     scale([s,1,1]) {
       difference() {
-	translate([-hinge_inner/2 - hinge_outer-width*2, -width/2, 0]) {
-	  cube([width - gap, width, lower_length * scale+width/2]);
-	  translate([0, width/2,0]) {
-	    rotate([0,90,0]) {
-	      cylinder(d=width, h=width-gap);
+	translate([-base_outer_length/2,0,0]) {
+	  rotate([90,0,90]) {
+	    linear_extrude(height= width - gap) {
+	      offset(r=width/2) {
+		polygon([[0, 0],
+			 [0, lower_length * scale],
+			 [upper_length * scale / 2, lower_length * scale],
+			 [upper_length * scale / 2, 0],
+			 [upper_length * scale, - slide_offset - cam_high_depth]
+			 ]
+			);
+	      }
+	      translate([upper_length * scale, - slide_offset - cam_high_depth]) {
+		circle(d=cam_axis_diam+width);
+	      }
 	    }
 	  }
 	}
-	translate([-hinge_inner/2-gap - hinge_outer-width*2, 0, 0]) {
+
+	translate([-base_outer_length/2-gap, 0, 0]) {
 	  rotate([0,90,0]) {
 	    cylinder(d=axis_diam, h=width+2*gap);
 	  }
+	  translate([0,upper_length * scale, - slide_offset - cam_high_depth]) {
+	    rotate([0,90,0]) {
+	      cylinder(d=cam_axis_diam, h=width+2*gap);
+	    }
+	  }
 	}
+	
       }
-      translate([-hinge_inner/2 - hinge_outer-width*2, -width/2, lower_length * scale+width/2 -guide_height]) {
+      translate([-base_outer_length/2, -width/2, lower_length * scale+width/2 -guide_height]) {
 	cube([width-gap, upper_length*scale+ width + guide_thickness + gap, guide_height]);
       }
     }
@@ -210,22 +228,3 @@ module base(upper_length, lower_length, scale, guide_thickness, width, axis_diam
 
 }
 
-translate([0,-upper_length,0]) {
-  lower_leg(width, lower_length, upper_strut_dist, axis_diam, hinge_inner);
-}
-rotate([0,0,90]) {
-  upper_leg(width, upper_length, scale, axis_diam, hinge_inner, hinge_outer, gap, slide_diam, slide_offset);
-  translate([0,0,upper_strut_dist]) {
-    upper_strut(width, upper_length, scale, axis_diam, hinge_inner, hinge_outer, gap);
-  }
-}
-
-translate([0,upper_length * scale,0]) {
- 
-  guide_strut(width, lower_length, upper_strut_dist, scale, axis_diam, hinge_inner, hinge_outer, gap);
-  
-}
-
-gimbal(width, axis_diam, hinge_inner, hinge_outer, gap);
-
-base(upper_length, lower_length, scale, guide_thickness,  width, axis_diam, hinge_outer, hinge_inner,upper_strut_dist);

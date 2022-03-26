@@ -56,4 +56,4 @@ function retval = fh(t)
 endfunction
 
 
-plot(t,arrayfun(@fs,t), t, arrayfun(@fh,t), arrayfun(@fs,t), arrayfun(@fh,t));
+plot(arrayfun(@fs,t), t , t, arrayfun(@fh,t), arrayfun(@fs,t), arrayfun(@fh,t));
