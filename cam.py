@@ -5,7 +5,7 @@ import sys
 
 stride = 8
 half_contact_angle = 2*pi/3
-lift = -5;
+lift = -4;
 base_radius = 15;
 outer_radius = 30
 N= 200;

@@ -26,7 +26,7 @@ base(upper_length, lower_length, scale, guide_thickness,  width, axis_diam, hing
 
 leg_assembly();
 
-translate([0,upper_length * scale, -slide_offset-cam_high_depth]) {
+translate(cam_center) {
   rotate([0,-90,0]) {
     cam();
   }

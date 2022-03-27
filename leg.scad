@@ -182,8 +182,8 @@ module base(upper_length, lower_length, scale, guide_thickness, width, axis_diam
   
     }
   }
-  translate([-guide_length/2, -width/2, lower_length * scale - width/2]) {
-    cube([guide_length,width,width]);
+  translate([-base_outer_length/2, -width/2, lower_length * scale - width/2]) {
+    cube([base_outer_length,width,width]);
   }
   for (s = [1,-1]) {
     scale([s,1,1]) {
@@ -194,13 +194,22 @@ module base(upper_length, lower_length, scale, guide_thickness, width, axis_diam
 	      offset(r=width/2) {
 		polygon([[0, 0],
 			 [0, lower_length * scale],
-			 [upper_length * scale / 2, lower_length * scale],
-			 [upper_length * scale / 2, 0],
-			 [upper_length * scale, - slide_offset - cam_high_depth]
+			 [width, lower_length * scale],
+			 [width, 0],
+			 [cam_center[1], cam_center[2]]
 			 ]
 			);
+		polygon([[center_dist -width/2, cam_center[2] + cam_outer],
+			 [cam_center[1], cam_center[2]],
+			 [center_dist + width/2, cam_center[2] + cam_outer],
+			 [center_dist + width/2, lower_length * scale],
+			 [0, lower_length * scale],
+			 [0, lower_length * scale-guide_height+width],
+			 [center_dist - width/2, lower_length * scale- guide_height+width],
+			 ]);
+			 
 	      }
-	      translate([upper_length * scale, - slide_offset - cam_high_depth]) {
+	      translate([cam_center[1], cam_center[2]]) {
 		circle(d=cam_axis_diam+width);
 	      }
 	    }
@@ -211,7 +220,7 @@ module base(upper_length, lower_length, scale, guide_thickness, width, axis_diam
 	  rotate([0,90,0]) {
 	    cylinder(d=axis_diam, h=width+2*gap);
 	  }
-	  translate([0,upper_length * scale, - slide_offset - cam_high_depth]) {
+	  translate([0,cam_center[1], cam_center[2]]) {
 	    rotate([0,90,0]) {
 	      cylinder(d=cam_axis_diam, h=width+2*gap);
 	    }
@@ -219,9 +228,7 @@ module base(upper_length, lower_length, scale, guide_thickness, width, axis_diam
 	}
 	
       }
-      translate([-base_outer_length/2, -width/2, lower_length * scale+width/2 -guide_height]) {
-	cube([width-gap, upper_length*scale+ width + guide_thickness + gap, guide_height]);
-      }
+     
     }
   }
   
