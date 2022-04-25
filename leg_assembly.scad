@@ -7,7 +7,7 @@ translate([0,-upper_length,0]) {
   lower_leg(width, lower_length, upper_strut_dist, axis_diam, hinge_inner);
 }
 rotate([0,0,90]) {
-  upper_leg(width, upper_length, scale, axis_diam, hinge_inner, hinge_outer, gap, slide_diam, slide_offset);
+  upper_leg(width, upper_length, scale, axis_diam, hinge_inner, hinge_outer, gap, slide_diam, slide_offset_horiz, slide_offset_vert);
   translate([0,0,upper_strut_dist]) {
     upper_strut(width, upper_length, scale, axis_diam, hinge_inner, hinge_outer, gap);
   }
