@@ -27,6 +27,11 @@ module cam() {
 	axis_lock();
       }
     }
+    translate([0,0,(cam_length-axis_lock_length)/2-2]) {
+      rotate([0,0,135]) {
+	axis_lock();
+      }
+    }
     translate([0,0,cam_length/2-cam_inset-0.5]) {
       linear_extrude(height=1) {
 	for(a=[0,90,120,180,240,270]) {

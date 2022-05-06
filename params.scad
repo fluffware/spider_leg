@@ -20,9 +20,9 @@ cam_axis_diam = 4;
 cam_inset = 1;
 
 center_dist = 45; // Distance from gimbal center to surface of center wall
-axis_lock_length = 15.1;
-axis_lock_outer_diam = 5.5;
-axis_lock_screw_dist = 10;
+axis_lock_length = 6.1;
+axis_lock_outer_diam = 5.6;
+//axis_lock_screw_dist = 10;
 axis_lock_screw_head_diam = 4.8;
 axis_lock_height = 6.8;
 axis_lock_screw_depth = 30;
