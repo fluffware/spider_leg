@@ -10,7 +10,7 @@ slide_offset_vert = 10; // Vertical distans from gimbal center to the center of 
 slide_offset_horiz = upper_length*scale + 4;// Horizontal distans from gimbal center to the center of the guide ball
 upper_strut_dist = 16;
 guide_thickness = 2;
-screw_head_heigth = 3;
+screw_head_height = 3;
 gap = 0.2;
 
 cam_outer = 20;

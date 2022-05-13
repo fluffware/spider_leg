@@ -237,13 +237,13 @@ module base(upper_length, lower_length, scale, guide_thickness, width, axis_diam
 	  for (hole = holes) {
 	    translate([0,hole[0], hole[1]]) {
 	      rotate([0,-90,0]) {
-		cylinder(d1=axis_diam+width, d2=axis_diam+width/2, h = screw_head_heigth);
+		cylinder(d1=axis_diam+width, d2=axis_diam+width/2, h = screw_head_height);
 	      }
 	    }
 	  }
 	  translate([0,cam_center[1], cam_center[2]]) {
 	    rotate([0,-90,0]) {
-	      cylinder(d1=cam_axis_diam+width, d2=cam_axis_diam+width/2, h = screw_head_heigth);
+	      cylinder(d1=cam_axis_diam+width, d2=cam_axis_diam+width/2, h = screw_head_height);
 	    }
 	  }
 	}
@@ -253,15 +253,15 @@ module base(upper_length, lower_length, scale, guide_thickness, width, axis_diam
 	    cylinder(d=axis_diam, h=width+2*gap);
 	  }
 	  for (hole = holes) {
-	    translate([-screw_head_heigth,hole[0], hole[1]]) {
+	    translate([-screw_head_height,hole[0], hole[1]]) {
 	      rotate([0,90,0]) {
-		cylinder(d=axis_diam, h=width+2*gap+screw_head_heigth);
+		cylinder(d=axis_diam, h=width+2*gap+screw_head_height);
 	      }
 	    }
 	  }
-	  translate([-screw_head_heigth,cam_center[1], cam_center[2]]) {
+	  translate([-screw_head_height,cam_center[1], cam_center[2]]) {
 	    rotate([0,90,0]) {
-	      cylinder(d=cam_axis_diam, h=width+2*gap+screw_head_heigth);
+	      cylinder(d=cam_axis_diam, h=width+2*gap+screw_head_height);
 	    }
 	  }
 	}
